@@ -17,3 +17,13 @@ path = './readme_source.txt'
 with open(path, 'r') as file:
     content = file.read()
 lines = content.splitlines()
+
+
+# In[67]:
+
+
+class Block:
+    def __init__(self, text):
+        self.text = text
+        self.words = self.text.split()
+        self.children = []
