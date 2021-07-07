@@ -13,3 +13,40 @@ EMDA
 			Whitespace indentation[it is recommended to use tabs (1 per level), but spaces are permissible] marks nested data and contains the general structure of information
 			Excepting any special processing or formatting rules applied to the plain text, emda stores data in string format
 			Aside from the above, special notation and syntax must be defined in a processor or emda file; templates and presets for commonly used ones are available but the language itself does not impose these
+	Examples
+		Below is a fairly minimal example of data represented in emda:
+		{ex}
+			cat
+				has
+					whiskers
+					fur
+					head
+					1 tail
+					4 legs
+					2 eyes
+				is an
+					animal
+				can be a
+					pet
+				can do
+					walk
+					run
+					jump
+					eat
+					hunt
+			bird
+				has
+					feathers
+					2 eyes
+					head
+					beak
+					1 tail
+					2 wings
+				can do
+					walk
+					fly
+					eat
+					hunt
+				is an
+					animal
+			[hidden] export: ./example.emda
