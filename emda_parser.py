@@ -34,3 +34,6 @@ class Block:
         else:
             self.children.append(x)
         return x
+    
+    def traverse(self, callback):
+        return [callback(c) for c in self.children]
