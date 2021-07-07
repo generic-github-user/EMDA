@@ -91,7 +91,7 @@ def getlinks(node):
     return links
 
 
-# In[138]:
+# In[140]:
 
 
 # path = 'entities.edma'
@@ -131,8 +131,17 @@ maindoc = Doc(path)
 # print(levels)
 # JSON(json.dumps(root, default=vars))
 
-maindoc.root.Metadata.Links.add([Block(l[1]) for l in getlinks(maindoc.root)])
-maindoc.backup()
+urls = []
+
+for l in getlinks(maindoc.root):
+    if l[1] == 'wiki':
+        b = f'https://en.wikipedia.org/wiki/{l[0].replace(" ", "_")}'
+    else:
+        b = l[1]
+    urls.append(Block(b))
+
+maindoc.root.Metadata.Links.add(urls)
+# maindoc.backup()
 
 # print(root.Metadata.Links)
 # print(root)
@@ -156,10 +165,10 @@ maindoc.root.visualize()
 getlinks(root)
 
 
-# In[43]:
+# In[142]:
 
 
-print(root.markdown())
+print(maindoc.root.markdown())
 
 
 # In[48]:
