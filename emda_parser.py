@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[61]:
+# In[108]:
 
 
 from IPython.display import JSON
 import json
 from pyvis.network import Network
+import pathlib
+import datetime
 
 
 # In[103]:
@@ -89,7 +91,7 @@ def getlinks(node):
     return links
 
 
-# In[104]:
+# In[138]:
 
 
 # path = 'entities.edma'
@@ -112,14 +114,34 @@ class Doc:
                 self.levels[tabs+1] = lblock
                 self.levels[tabs].add(lblock)
                 
+    def save(self, file_path):
+        with open(file_path, 'w') as savefile:
+            savefile.write(str(self.root))
+        
+    def backup(self):
+        backup_dir = 'eparse_backups'
+        pathlib.Path(f'./{backup_dir}').mkdir(parents=True, exist_ok=True)
+        timestamp = datetime.datetime.now().strftime('%d-%m-%Y_%H-%M-%S')
+        backup_path = f'./{backup_dir}/backup_{timestamp}.emda'
+        self.save(backup_path)
+        return backup_path
+                
 maindoc = Doc(path)
 
 # print(levels)
 # JSON(json.dumps(root, default=vars))
 
 maindoc.root.Metadata.Links.add([Block(l[1]) for l in getlinks(maindoc.root)])
+maindoc.backup()
+
 # print(root.Metadata.Links)
 # print(root)
+
+
+# In[137]:
+
+
+
 
 
 # In[105]:
