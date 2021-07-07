@@ -44,3 +44,9 @@ class Block:
     
 #     def indent(self, n):
 #         return ['\t'*n+c for c in self.children]
+    
+    def tostring(self, l=0):
+        return self.text + ''.join(['\n'+('\t'*l)+c.tostring(l+1) for c in self.children])
+    
+    def __str__(self):
+        return self.tostring()
