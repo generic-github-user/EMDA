@@ -38,6 +38,15 @@ class Block:
     def traverse(self, callback):
         return [callback(c) for c in self.children]
     
+#     def collect(self):
+#         collected = Block('')
+#         collected.add(self.traverse(lambda a: a))
+#         collected = []
+#         for c in self.children:
+#             print(c.collect())
+#             collected.extend([[d.text, c] for a, d in c.collect()])
+#         return collected
+    
     def markdown(self, level=0):
         prefixes = ['# ', '## ', '', '- ', '', '', '']
         return self.text + '\n' + '\n'.join(prefixes[level]+c.markdown(level+1) for c in self.children)
@@ -51,6 +60,14 @@ class Block:
     def find(self, name):
         return list(filter(lambda x: x.text == name, self.children))
     
+    def relations(self):
+        rlist = []
+        for c in self.children:
+#             print(c.relations())
+            rlist.append([self, c])
+#             rlist.extend([[c, t] for t, r in c.relations()])
+            rlist.extend(c.relations())
+        return rlist
     def __str__(self):
         return self.tostring()
     
