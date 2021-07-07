@@ -60,3 +60,15 @@ class Block:
             return nodes[0]
         else:
             return self.add(Block(name))
+        
+def getlinks(node):
+    links = []
+    for w in node.words:
+        if '$' in w:
+            links.append(w.split('$'))
+    for c in node.children:
+        links.extend(getlinks(c))
+    return links
+        
+root.Metadata.Links.add([Block(l[1]) for l in getlinks(root)])
+print(root.Metadata.Links)
