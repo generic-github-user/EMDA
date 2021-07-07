@@ -37,3 +37,10 @@ class Block:
     
     def traverse(self, callback):
         return [callback(c) for c in self.children]
+    
+    def markdown(self, level=0):
+        prefixes = ['# ', '## ', '', '- ', '', '', '']
+        return self.text + '\n' + '\n'.join(prefixes[level]+c.markdown(level+1) for c in self.children)
+    
+#     def indent(self, n):
+#         return ['\t'*n+c for c in self.children]
