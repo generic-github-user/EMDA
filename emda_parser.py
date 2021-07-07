@@ -48,5 +48,15 @@ class Block:
     def tostring(self, l=0):
         return self.text + ''.join(['\n'+('\t'*l)+c.tostring(l+1) for c in self.children])
     
+    def find(self, name):
+        return list(filter(lambda x: x.text == name, self.children))
+    
     def __str__(self):
         return self.tostring()
+    
+    def __getattr__(self, name):
+        nodes = self.find(name)
+        if nodes:
+            return nodes[0]
+        else:
+            return self.add(Block(name))
