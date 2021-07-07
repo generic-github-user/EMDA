@@ -27,3 +27,10 @@ class Block:
         self.text = text
         self.words = self.text.split()
         self.children = []
+
+    def add(self, x):
+        if type(x) in [list, tuple]:
+            self.children.extend(x)
+        else:
+            self.children.append(x)
+        return x
