@@ -1,25 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[9]:
+# In[61]:
 
 
 from IPython.display import JSON
 import json
+from pyvis.network import Network
 
 
-# In[18]:
-
-
-# path = 'entities.edma'
-# path = '../todo_july.txt'
-path = './readme_source.txt'
-with open(path, 'r') as file:
-    content = file.read()
-lines = content.splitlines()
-
-
-# In[67]:
+# In[103]:
 
 
 class Block:
@@ -86,23 +76,39 @@ def getlinks(node):
     for c in node.children:
         links.extend(getlinks(c))
     return links
+
+
+# In[104]:
+
+
+# path = 'entities.edma'
+# path = '../todo_july.txt'
+path = './readme_source.txt'
+class Doc:
+    def __init__(self, source):
+        self.source = source
+        with open(self.source, 'r') as source_file:
+            self.content = source_file.read()
+        self.lines = self.content.splitlines()
         
-root = Block('')
-levels = {0: root}
-for line in lines:
-    content = line.lstrip()
-    if content:
-        tabs = len(line) - len(content)
-        lblock = Block(content)
-        levels[tabs+1] = lblock
-        levels[tabs].add(lblock)
+        self.root = Block('')
+        self.levels = {0: self.root}
+        for line in self.lines:
+            content = line.lstrip()
+            if content:
+                tabs = len(line) - len(content)
+                lblock = Block(content)
+                self.levels[tabs+1] = lblock
+                self.levels[tabs].add(lblock)
+                
+maindoc = Doc(path)
 
 # print(levels)
 # JSON(json.dumps(root, default=vars))
 
-root.Metadata.Links.add([Block(l[1]) for l in getlinks(root)])
-print(root.Metadata.Links)
-print(root)
+maindoc.root.Metadata.Links.add([Block(l[1]) for l in getlinks(maindoc.root)])
+# print(root.Metadata.Links)
+# print(root)
 
 
 # In[62]:
