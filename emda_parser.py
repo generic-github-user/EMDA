@@ -70,5 +70,44 @@ def getlinks(node):
         links.extend(getlinks(c))
     return links
         
+root = Block('')
+levels = {0: root}
+for line in lines:
+    content = line.lstrip()
+    if content:
+        tabs = len(line) - len(content)
+        lblock = Block(content)
+        levels[tabs+1] = lblock
+        levels[tabs].add(lblock)
+
+# print(levels)
+# JSON(json.dumps(root, default=vars))
+
 root.Metadata.Links.add([Block(l[1]) for l in getlinks(root)])
 print(root.Metadata.Links)
+print(root)
+
+
+# In[62]:
+
+
+getlinks(root)
+
+
+# In[43]:
+
+
+print(root.markdown())
+
+
+# In[48]:
+
+
+_
+
+
+# In[ ]:
+
+
+
+
