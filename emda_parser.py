@@ -58,6 +58,17 @@ class Block:
 #             rlist.extend([[c, t] for t, r in c.relations()])
             rlist.extend(c.relations())
         return rlist
+    
+    def visualize(self, path='./graph-visualization.html'):
+        self.vis = Network(notebook=True, width=800, height=800)
+        rel_text = [[' '.join(a.text.split()[:3]) for a in b] for b in self.relations()]
+#         print(rel_text)
+        for x, y in rel_text:
+            for w in [x, y]:
+                self.vis.add_node(w)
+            self.vis.add_edge(x, y)
+        return self.vis.show(path)
+    
     def __str__(self):
         return self.tostring()
     
@@ -109,6 +120,12 @@ maindoc = Doc(path)
 maindoc.root.Metadata.Links.add([Block(l[1]) for l in getlinks(maindoc.root)])
 # print(root.Metadata.Links)
 # print(root)
+
+
+# In[105]:
+
+
+maindoc.root.visualize()
 
 
 # In[62]:
