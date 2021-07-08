@@ -50,3 +50,18 @@ EMDA
 				is an
 					animal
 			[hidden] export: ./example.emda
+		The parser will internally convert this to a Python dictionary containing the structure of the data and relationships between entries (essentially, a directed graph). We can then construct a mapping to a reorganized tree that groups on some common property; `a.is.animal -> animal.a`. This amounts to a graph rewriting operation and is an example of a common operation used to restructure DREMDA.
+		
+		
+		
+		One interesting byproduct of emda's highly dynamic nature is that it can be used to create compact microapps that combine data storage with an interface. Consider this small calculator:
+		{ex}
+			Run calculation
+				5 ** 7
+			Previous calculations
+		Here is another, a minimal notes app:
+		{ex}
+			Add note: 
+		
+		
+		In fact, this readme was written in emda and used to generate a md file.
